@@ -1,9 +1,10 @@
 const placesList = document.querySelector('.places__list');
+const cardTemplate = document.querySelector('#card-template').content;
 
 const createCard = (item) => {
-	const cardTemplate = document.querySelector('#card-template').content;
 	const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 	cardElement.querySelector('.card__image').src = item.link;
+	cardElement.querySelector('.card__image').alt = "Картинка места";
 	cardElement.querySelector('.card__title').textContent = item.name;
 
 	const deleteButton = cardElement.querySelector('.card__delete-button');
