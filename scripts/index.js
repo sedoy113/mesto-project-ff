@@ -7,15 +7,11 @@ const createCard = (item) => {
 	cardElement.querySelector('.card__title').textContent = item.name;
 
 	const deleteButton = cardElement.querySelector('.card__delete-button');
-	deleteButton.addEventListener('click', () => {
-		deleteCard(cardElement);
-	});
+	deleteButton.addEventListener('click', () => deleteCard(cardElement));
 	return cardElement;
 }
 
-const deleteCard = (cardElement) => {
-	cardElement.remove();
-}
+const deleteCard = (cardElement) => cardElement.remove();
 
 const addCardsToList = (initialCards) => {
 	if (!initialCards.length) {
