@@ -1,3 +1,5 @@
+import { initialCards } from './cards.js';
+
 const placesList = document.querySelector('.places__list');
 const cardTemplate = document.querySelector('#card-template').content;
 
@@ -14,7 +16,7 @@ const createCard = (item) => {
 
 const deleteCard = (cardElement) => cardElement.remove();
 
-const addCardsToList = (initialCards) => {
+export const addCardsToList = (initialCards) => {
 	if (!initialCards.length) {
 		console.warn('Нет данных в массиве');
 		return;
