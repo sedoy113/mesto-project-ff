@@ -1,7 +1,9 @@
 import { initialCards } from './cards.js';
+import { openPopup, popupTypeImage } from './popup.js';
 
 const placesList = document.querySelector('.places__list');
 const cardTemplate = document.querySelector('#card-template').content;
+
 
 const createCard = (item) => {
 	const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -11,10 +13,15 @@ const createCard = (item) => {
 
 	const deleteButton = cardElement.querySelector('.card__delete-button');
 	deleteButton.addEventListener('click', () => deleteCard(cardElement));
+	const cardImage = cardElement.querySelector('.card__image');
+	cardImage.addEventListener('click', () => openPopup(popupTypeImage));
+	console.log(cardImage);
 	return cardElement;
 }
 
 const deleteCard = (cardElement) => cardElement.remove();
+
+
 
 export const addCardsToList = (initialCards) => {
 	if (!initialCards.length) {
@@ -26,3 +33,4 @@ export const addCardsToList = (initialCards) => {
 }
 
 addCardsToList(initialCards);
+
