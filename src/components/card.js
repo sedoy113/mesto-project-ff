@@ -1,34 +1,35 @@
 import { initialCards } from './cards.js';
-import { openPopup, popupTypeImage } from './popup.js';
+import { popupImage } from './popup.js';
 
 const placesList = document.querySelector('.places__list');
 const cardTemplate = document.querySelector('#card-template').content;
 
-
 const createCard = (item) => {
 	const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-	cardElement.querySelector('.card__image').src = item.link;
-	cardElement.querySelector('.card__image').alt = "Картинка места";
+	const cardImage = cardElement.querySelector('.card__image');
+	cardImage.src = item.link;
+	cardImage.alt = "Картинка места";
 	cardElement.querySelector('.card__title').textContent = item.name;
 
 	const deleteButton = cardElement.querySelector('.card__delete-button');
 	deleteButton.addEventListener('click', () => deleteCard(cardElement));
-	const cardImage = cardElement.querySelector('.card__image');
+
 	cardImage.addEventListener('click', () => {
-		openPopup(popupTypeImage)
-		popupTypeImage.querySelector('.popup__image').src = item.link;
-		popupTypeImage.querySelector('.popup__image').alt = "Картинка места";
-		popupTypeImage.querySelector('.popup__caption').textContent = item.name;
+		popupImage(item);
 	});
 
 	return cardElement;
 }
 
+const addCreateCard = (text, url) => {
+	const newImage = { name: text, link: url };
+	const cardElement = createCard(newImage);
+	placesList.prepend(cardElement);
+}
+
 const deleteCard = (cardElement) => cardElement.remove();
 
-
-
-export const addCardsToList = (initialCards) => {
+const addCardsToList = (initialCards) => {
 	if (!initialCards.length) {
 		console.warn('Нет данных в массиве');
 		return;
@@ -39,3 +40,4 @@ export const addCardsToList = (initialCards) => {
 
 addCardsToList(initialCards);
 
+export { addCardsToList, addCreateCard };

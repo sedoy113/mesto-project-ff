@@ -1,12 +1,13 @@
 import { profileTitle, profileDescription } from './profile.js';
+import { addCreateCard } from './card.js';
 
 const popupElement = document.querySelectorAll('.popup');
 const popupClose = document.querySelectorAll('.popup__close');
 const popupTypeEdit = document.querySelector('.popup_type_edit');
 const popupTypeNewCard = document.querySelector('.popup_type_new-card');
 const popupTypeImage = document.querySelector('.popup_type_image');
-const popupForm = document.querySelector('.popup__form');
-
+const editProfile = document.forms["edit-profile"];
+const newPlace = document.forms["new-place"];
 
 const openPopup = (popup) => {
 	popup.classList.add('popup_is-opened');
@@ -43,18 +44,36 @@ popupClose.forEach((button) => {
 	});
 });
 
+const popupImage = (item) => {
+	openPopup(popupTypeImage)
+	popupTypeImage.querySelector('.popup__image').src = item.link;
+	popupTypeImage.querySelector('.popup__image').alt = "Картинка места";
+	popupTypeImage.querySelector('.popup__caption').textContent = item.name;
+}
+
 const popupFormeditInput = () => {
-	popupForm.querySelector('.popup__input_type_name').value = profileTitle.textContent;
-	popupForm.querySelector('.popup__input_type_description').value = profileDescription.textContent;
+	editProfile.querySelector('.popup__input_type_name').value = profileTitle.textContent;
+	editProfile.querySelector('.popup__input_type_description').value = profileDescription.textContent;
 }
 
 const popupFormInnerText = (evt) => {
 	evt.preventDefault();
-	profileTitle.textContent = popupForm.querySelector('.popup__input_type_name').value;
-	profileDescription.textContent = popupForm.querySelector('.popup__input_type_description').value;
+	profileTitle.textContent = editProfile.querySelector('.popup__input_type_name').value;
+	profileDescription.textContent = editProfile.querySelector('.popup__input_type_description').value;
 	closePopup(popupTypeEdit);
 }
 
-popupForm.addEventListener('submit', popupFormInnerText);
+const popupFormAddCard = (evt) => {
+	evt.preventDefault();
+	const addName = newPlace.querySelector('.popup__input_type_card-name').value;
+	const addImage = newPlace.querySelector('.popup__input_type_url').value;
 
-export { openPopup, popupFormeditInput, popupTypeEdit, popupTypeNewCard, popupTypeImage };
+	addCreateCard(addName, addImage);
+	newPlace.reset();
+	closePopup(popupTypeNewCard);
+}
+
+editProfile.addEventListener('submit', popupFormInnerText);
+newPlace.addEventListener('submit', popupFormAddCard);
+
+export { openPopup, popupFormeditInput, popupImage, popupTypeEdit, popupTypeNewCard };
