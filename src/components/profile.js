@@ -10,7 +10,6 @@ profileEditButton.addEventListener('click', () => {
 	openPopup(popupTypeEdit)
 });
 
-
 profileAddButton.addEventListener('click', () => {
 	openPopup(popupTypeNewCard);
 });

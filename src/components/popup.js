@@ -9,8 +9,6 @@ const popupTypeImage = document.querySelector('.popup_type_image');
 const editProfile = document.forms["edit-profile"];
 const newPlace = document.forms["new-place"];
 
-
-
 popupElement.forEach((popup) => {
 	popup.classList.add('popup_is-animated');
 	popup.addEventListener('click', (e) => {
