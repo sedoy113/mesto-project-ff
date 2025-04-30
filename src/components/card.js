@@ -1,4 +1,3 @@
-import { initialCards } from './cards.js';
 import { popupImage } from './popup.js';
 
 const placesList = document.querySelector('.places__list');
@@ -43,7 +42,5 @@ const addCardsToList = (initialCards) => {
 	const cards = initialCards.map(item => createCard(item, likeCard, popupImage));
 	cards.forEach(card => placesList.append(card));
 }
-
-addCardsToList(initialCards);
 
 export { addCardsToList, addCreateCard };
