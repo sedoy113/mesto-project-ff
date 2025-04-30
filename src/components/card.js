@@ -20,7 +20,7 @@ const createCard = (item) => {
 		popupTypeImage.querySelector('.popup__image').alt = "Картинка места";
 		popupTypeImage.querySelector('.popup__caption').textContent = item.name;
 	});
-	// console.log(cardImage);
+
 	return cardElement;
 }
 
