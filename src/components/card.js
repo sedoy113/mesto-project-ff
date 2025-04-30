@@ -14,8 +14,13 @@ const createCard = (item) => {
 	const deleteButton = cardElement.querySelector('.card__delete-button');
 	deleteButton.addEventListener('click', () => deleteCard(cardElement));
 	const cardImage = cardElement.querySelector('.card__image');
-	cardImage.addEventListener('click', () => openPopup(popupTypeImage));
-	console.log(cardImage);
+	cardImage.addEventListener('click', () => {
+		openPopup(popupTypeImage)
+		popupTypeImage.querySelector('.popup__image').src = item.link;
+		popupTypeImage.querySelector('.popup__image').alt = "Картинка места";
+		popupTypeImage.querySelector('.popup__caption').textContent = item.name;
+	});
+	// console.log(cardImage);
 	return cardElement;
 }
 
