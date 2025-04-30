@@ -9,29 +9,10 @@ const popupTypeImage = document.querySelector('.popup_type_image');
 const editProfile = document.forms["edit-profile"];
 const newPlace = document.forms["new-place"];
 
-const openPopup = (popup) => {
-	popup.classList.add('popup_is-opened');
 
-	const handleEscClose = (e) => {
-		if (e.key === 'Escape') {
-			closePopup(popup);
-		}
-	};
-
-	document.addEventListener('keydown', handleEscClose);
-	popup.escHandler = handleEscClose;
-};
-
-const closePopup = (popup) => {
-	popup.classList.remove('popup_is-opened');
-
-	if (popup.escHandler) {
-		document.removeEventListener('keydown', popup.escHandler);
-		delete popup.escHandler;
-	}
-};
 
 popupElement.forEach((popup) => {
+	popup.classList.add('popup_is-animated');
 	popup.addEventListener('click', (e) => {
 		if (e.target === popup) closePopup(popup);
 	});
@@ -72,6 +53,28 @@ const popupFormAddCard = (evt) => {
 	newPlace.reset();
 	closePopup(popupTypeNewCard);
 }
+
+const openPopup = (popup) => {
+	popup.classList.add('popup_is-opened');
+
+	const handleEscClose = (e) => {
+		if (e.key === 'Escape') {
+			closePopup(popup);
+		}
+	};
+
+	document.addEventListener('keydown', handleEscClose);
+	popup.escHandler = handleEscClose;
+};
+
+const closePopup = (popup) => {
+	popup.classList.remove('popup_is-opened');
+
+	if (popup.escHandler) {
+		document.removeEventListener('keydown', popup.escHandler);
+		delete popup.escHandler;
+	}
+};
 
 editProfile.addEventListener('submit', popupFormInnerText);
 newPlace.addEventListener('submit', popupFormAddCard);
