@@ -24,10 +24,10 @@ popupClose.forEach((button) => {
 });
 
 const popupImage = (item) => {
-	openPopup(popupTypeImage)
 	popupTypeImage.querySelector('.popup__image').src = item.link;
 	popupTypeImage.querySelector('.popup__image').alt = "Картинка места";
 	popupTypeImage.querySelector('.popup__caption').textContent = item.name;
+	openPopup(popupTypeImage)
 }
 
 const popupFormeditInput = () => {

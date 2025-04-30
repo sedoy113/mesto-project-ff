@@ -4,7 +4,7 @@ import { popupImage } from './popup.js';
 const placesList = document.querySelector('.places__list');
 const cardTemplate = document.querySelector('#card-template').content;
 
-const createCard = (item, likeCard) => {
+const createCard = (item, likeCard, popupImage) => {
 	const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 	const cardImage = cardElement.querySelector('.card__image');
 	cardImage.src = item.link;
@@ -29,7 +29,7 @@ const likeCard = (evt) => {
 
 const addCreateCard = (text, url) => {
 	const newImage = { name: text, link: url };
-	const cardElement = createCard(newImage, likeCard);
+	const cardElement = createCard(newImage, likeCard, popupImage);
 	placesList.prepend(cardElement);
 }
 
@@ -40,7 +40,7 @@ const addCardsToList = (initialCards) => {
 		console.warn('Нет данных в массиве');
 		return;
 	}
-	const cards = initialCards.map(item => createCard(item, likeCard));
+	const cards = initialCards.map(item => createCard(item, likeCard, popupImage));
 	cards.forEach(card => placesList.append(card));
 }
 
