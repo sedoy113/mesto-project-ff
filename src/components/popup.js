@@ -25,7 +25,7 @@ popupClose.forEach((button) => {
 
 const popupImage = (item) => {
 	popupTypeImage.querySelector('.popup__image').src = item.link;
-	popupTypeImage.querySelector('.popup__image').alt = "Картинка места";
+	popupTypeImage.querySelector('.popup__image').alt = item.name;
 	popupTypeImage.querySelector('.popup__caption').textContent = item.name;
 	openPopup(popupTypeImage)
 }
