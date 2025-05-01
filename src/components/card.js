@@ -13,9 +13,7 @@ const createCard = (item, likeCard, popupImage) => {
 	const deleteButton = cardElement.querySelector('.card__delete-button');
 	deleteButton.addEventListener('click', () => deleteCard(cardElement));
 
-	cardImage.addEventListener('click', () => {
-		popupImage(item);
-	});
+	cardImage.addEventListener('click', () => popupImage(item));
 
 	cardElement.querySelector('.card__like-button').addEventListener('click', likeCard);
 
