@@ -31,8 +31,10 @@ const popupImage = (item) => {
 }
 
 const popupFormeditInput = () => {
+	console.log("click");
 	editProfile.querySelector('.popup__input_type_name').value = profileTitle.textContent;
 	editProfile.querySelector('.popup__input_type_description').value = profileDescription.textContent;
+	openPopup(popupTypeEdit)
 }
 
 const popupFormInnerText = (evt) => {
@@ -77,4 +79,4 @@ const closePopup = (popup) => {
 editProfile.addEventListener('submit', popupFormInnerText);
 newPlace.addEventListener('submit', popupFormAddCard);
 
-export { openPopup, popupFormeditInput, popupImage, popupTypeEdit, popupTypeNewCard };
+export { openPopup, popupFormeditInput, popupImage, popupTypeNewCard };
