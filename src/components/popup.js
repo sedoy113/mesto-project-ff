@@ -78,8 +78,8 @@ const closePopup = (popup) => {
 };
 
 const saveLocalStorage = () => {
-	profileTitle.textContent = localStorage.getItem('profileTitle') || '';
-	profileDescription.textContent = localStorage.getItem('profileDescription') || '';
+	profileTitle.textContent = localStorage.getItem('profileTitle') || 'Жак-Ив Кусто';
+	profileDescription.textContent = localStorage.getItem('profileDescription') || 'Исследователь океана';
 }
 
 editProfile.addEventListener('submit', popupFormInnerText);
