@@ -31,7 +31,6 @@ const popupImage = (item) => {
 }
 
 const popupFormeditInput = () => {
-	console.log("click");
 	editProfile.querySelector('.popup__input_type_name').value = profileTitle.textContent;
 	editProfile.querySelector('.popup__input_type_description').value = profileDescription.textContent;
 	openPopup(popupTypeEdit)
@@ -41,6 +40,8 @@ const popupFormInnerText = (evt) => {
 	evt.preventDefault();
 	profileTitle.textContent = editProfile.querySelector('.popup__input_type_name').value;
 	profileDescription.textContent = editProfile.querySelector('.popup__input_type_description').value;
+	localStorage.setItem('profileTitle', profileTitle.textContent);
+	localStorage.setItem('profileDescription', profileDescription.textContent);
 	closePopup(popupTypeEdit);
 }
 
@@ -76,7 +77,12 @@ const closePopup = (popup) => {
 	}
 };
 
+const saveLocalStorage = () => {
+	profileTitle.textContent = localStorage.getItem('profileTitle') || '';
+	profileDescription.textContent = localStorage.getItem('profileDescription') || '';
+}
+
 editProfile.addEventListener('submit', popupFormInnerText);
 newPlace.addEventListener('submit', popupFormAddCard);
-
+saveLocalStorage();
 export { openPopup, popupFormeditInput, popupImage, popupTypeNewCard };
