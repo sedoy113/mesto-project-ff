@@ -26,8 +26,10 @@ const addCardsToList = (initialCards, popupImage) => {
 		console.warn('Нет данных в массиве');
 		return;
 	}
-	const cards = initialCards.map(item => createCard(item, likeCard, popupImage, deleteCard));
-	cards.forEach(card => placesList.append(card));
+	initialCards.forEach(item => {
+		const card = createCard(item, likeCard, popupImage, deleteCard);
+		placesList.append(card);
+	});
 }
 
 const addCreateCard = (text, url, popupImage) => {
