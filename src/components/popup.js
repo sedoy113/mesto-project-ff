@@ -2,7 +2,7 @@ import { profileTitle, profileDescription, addCreateCard } from '../index.js';
 // import { addCreateCard } from './card.js';
 
 const popupElement = document.querySelectorAll('.popup');
-const popupClose = document.querySelectorAll('.popup__close');
+
 const popupTypeEdit = document.querySelector('.popup_type_edit');
 const popupTypeNewCard = document.querySelector('.popup_type_new-card');
 const popupTypeImage = document.querySelector('.popup_type_image');
@@ -14,13 +14,10 @@ popupElement.forEach((popup) => {
 	popup.addEventListener('click', (e) => {
 		if (e.target === popup) closePopup(popup);
 	});
-});
-
-popupClose.forEach((button) => {
-	button.addEventListener('click', () => {
-		const popup = button.closest('.popup');
-		closePopup(popup);
-	});
+	const popupClose = popup.querySelector('.popup__close');
+	if (popupClose) {
+		popupClose.addEventListener('click', () => closePopup(popup));
+	}
 });
 
 const popupImage = (item) => {
