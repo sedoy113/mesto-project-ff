@@ -1,4 +1,4 @@
-import { profileTitle, profileDescription } from './profile.js';
+import { profileTitle, profileDescription } from '../index.js';
 import { addCreateCard } from './card.js';
 
 const popupElement = document.querySelectorAll('.popup');
@@ -40,8 +40,7 @@ const popupFormInnerText = (evt) => {
 	evt.preventDefault();
 	profileTitle.textContent = editProfile.querySelector('.popup__input_type_name').value;
 	profileDescription.textContent = editProfile.querySelector('.popup__input_type_description').value;
-	localStorage.setItem('profileTitle', profileTitle.textContent);
-	localStorage.setItem('profileDescription', profileDescription.textContent);
+
 	closePopup(popupTypeEdit);
 }
 
@@ -50,7 +49,7 @@ const popupFormAddCard = (evt) => {
 	const addName = newPlace.querySelector('.popup__input_type_card-name').value;
 	const addImage = newPlace.querySelector('.popup__input_type_url').value;
 
-	addCreateCard(addName, addImage);
+	addCreateCard(addName, addImage, popupImage);
 	newPlace.reset();
 	closePopup(popupTypeNewCard);
 }
@@ -77,12 +76,8 @@ const closePopup = (popup) => {
 	}
 };
 
-const saveLocalStorage = () => {
-	profileTitle.textContent = localStorage.getItem('profileTitle') || 'Жак-Ив Кусто';
-	profileDescription.textContent = localStorage.getItem('profileDescription') || 'Исследователь океана';
-}
 
 editProfile.addEventListener('submit', popupFormInnerText);
 newPlace.addEventListener('submit', popupFormAddCard);
-saveLocalStorage();
-export { openPopup, popupFormeditInput, popupImage, popupTypeNewCard };
+
+export { openPopup, popupFormeditInput, popupTypeNewCard, popupImage };
