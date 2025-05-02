@@ -1,5 +1,5 @@
-import { profileTitle, profileDescription } from '../index.js';
-import { addCreateCard } from './card.js';
+import { profileTitle, profileDescription, addCreateCard } from '../index.js';
+// import { addCreateCard } from './card.js';
 
 const popupElement = document.querySelectorAll('.popup');
 const popupClose = document.querySelectorAll('.popup__close');
