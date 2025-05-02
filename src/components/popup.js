@@ -1,8 +1,6 @@
 import { profileTitle, profileDescription, addCreateCard } from '../index.js';
-// import { addCreateCard } from './card.js';
 
 const popupElement = document.querySelectorAll('.popup');
-
 const popupTypeEdit = document.querySelector('.popup_type_edit');
 const popupTypeNewCard = document.querySelector('.popup_type_new-card');
 const popupTypeImage = document.querySelector('.popup_type_image');
