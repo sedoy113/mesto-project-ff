@@ -13,7 +13,7 @@ const profileDescription = document.querySelector('.profile__description');
 const placesList = document.querySelector('.places__list');
 
 profileEditButton.addEventListener('click', () => {
-	openPopupFormeditInput();
+	openPopupFormeditInput(profileTitle.textContent, profileDescription.textContent);
 });
 
 profileAddButton.addEventListener('click', () => {

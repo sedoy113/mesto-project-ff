@@ -23,6 +23,7 @@ const handleEscClose = (e) => {
 };
 
 
+
 popupElementList.forEach((popup) => {
 	popup.classList.add('popup_is-animated');
 	popup.addEventListener('click', (e) => {
@@ -41,9 +42,9 @@ const openPopupImage = (item) => {
 	openPopup(popupTypeImage)
 }
 
-const openPopupFormeditInput = () => {
-	popupInputTypeName.value = profileTitle.textContent;
-	popupInputTypeDescription.value = profileDescription.textContent;
+const openPopupFormeditInput = (title, description) => {
+	popupInputTypeName.value = title;
+	popupInputTypeDescription.value = description;
 	openPopup(popupTypeEdit)
 }
 
