@@ -3,7 +3,7 @@ import './images/logo.svg';
 import './images/avatar.jpg';
 import { initialCards } from './components/cards.js';
 import { createCard, likeCard, deleteCard } from './components/card.js';
-import { openPopup, popupFormeditInput, popupTypeNewCard, popupImage } from './components/popup.js';
+import { openPopup, openPopupFormeditInput, popupTypeNewCard, openPopupImage } from './components/popup.js';
 
 
 const profileAddButton = document.querySelector('.profile__add-button');
@@ -13,7 +13,7 @@ const profileDescription = document.querySelector('.profile__description');
 const placesList = document.querySelector('.places__list');
 
 profileEditButton.addEventListener('click', () => {
-	popupFormeditInput();
+	openPopupFormeditInput();
 });
 
 profileAddButton.addEventListener('click', () => {
@@ -21,24 +21,24 @@ profileAddButton.addEventListener('click', () => {
 });
 
 // добавить карточку в список из массива данных
-const addCardsToList = (initialCards, popupImage) => {
+const addCardsToList = (initialCards, openPopupImage) => {
 	if (!initialCards.length) {
 		console.warn('Нет данных в массиве');
 		return;
 	}
 	initialCards.forEach(item => {
-		const card = createCard(item, likeCard, popupImage, deleteCard);
+		const card = createCard(item, likeCard, openPopupImage, deleteCard);
 		placesList.append(card);
 	});
 }
 
-const addCreateCard = (text, url, popupImage) => {
+const addCreateCard = (text, url, openPopupImage) => {
 	const newImage = { name: text, link: url };
-	const cardElement = createCard(newImage, likeCard, popupImage, deleteCard);
+	const cardElement = createCard(newImage, likeCard, openPopupImage, deleteCard);
 	placesList.prepend(cardElement);
 }
 
-addCardsToList(initialCards, popupImage);
+addCardsToList(initialCards, openPopupImage);
 
 export { profileTitle, profileDescription, addCreateCard };
 
