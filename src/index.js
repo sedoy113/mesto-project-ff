@@ -3,7 +3,7 @@ import './images/logo.svg';
 import './images/avatar.jpg';
 import { initialCards } from './components/cards.js';
 import { createCard, likeCard, deleteCard } from './components/card.js';
-import { openPopup, openPopupFormeditInput, popupTypeNewCard, openPopupImage } from './components/popup.js';
+import { openPopup, openPopupFormeditInput, popupTypeNewCard, openPopupImage, setupPopupHandlers } from './components/popup.js';
 
 
 const profileAddButton = document.querySelector('.profile__add-button');
@@ -40,7 +40,9 @@ const addCreateCard = (text, url, openPopupImage) => {
 
 addCardsToList(initialCards, openPopupImage);
 
-export { profileTitle, profileDescription, addCreateCard };
+setupPopupHandlers(addCreateCard);
+
+export { profileTitle, profileDescription };
 
 
 

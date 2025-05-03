@@ -1,4 +1,4 @@
-import { profileTitle, profileDescription, addCreateCard } from '../index.js';
+import { profileTitle, profileDescription } from '../index.js';
 
 const popupElementList = document.querySelectorAll('.popup');
 const popupTypeEdit = document.querySelector('.popup_type_edit');
@@ -21,8 +21,6 @@ const handleEscClose = (e) => {
 		}
 	}
 };
-
-
 
 popupElementList.forEach((popup) => {
 	popup.classList.add('popup_is-animated');
@@ -56,15 +54,19 @@ const openPopupFormInnerText = (evt) => {
 	closePopup(popupTypeEdit);
 }
 
-const openPopupFormAddCard = (evt) => {
-	evt.preventDefault();
-	const addName = popupInputTypeCardName.value;
-	const addImage = popupInputTypeUrl.value;
+const setupPopupHandlers = (addCreateCard) => {
+	const openPopupFormAddCard = (evt) => {
+		evt.preventDefault();
+		const addName = popupInputTypeCardName.value;
+		const addImage = popupInputTypeUrl.value;
+		addCreateCard(addName, addImage, openPopupImage);
+		newPlace.reset();
+		closePopup(popupTypeNewCard);
+	};
 
-	addCreateCard(addName, addImage, openPopupImage);
-	newPlace.reset();
-	closePopup(popupTypeNewCard);
-}
+	editProfile.addEventListener('submit', openPopupFormInnerText);
+	newPlace.addEventListener('submit', openPopupFormAddCard);
+};
 
 const openPopup = (popup) => {
 	popup.classList.add('popup_is-opened');
@@ -76,8 +78,4 @@ const closePopup = (popup) => {
 	document.removeEventListener('keydown', handleEscClose);
 };
 
-
-editProfile.addEventListener('submit', openPopupFormInnerText);
-newPlace.addEventListener('submit', openPopupFormAddCard);
-
-export { openPopup, openPopupFormeditInput, popupTypeNewCard, openPopupImage };
+export { openPopup, openPopupFormeditInput, popupTypeNewCard, openPopupImage, setupPopupHandlers };
