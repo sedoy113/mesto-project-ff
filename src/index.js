@@ -40,9 +40,7 @@ const addCreateCard = (text, url, openPopupImage) => {
 
 addCardsToList(initialCards, openPopupImage);
 
-setupPopupHandlers(addCreateCard);
-
-export { profileTitle, profileDescription };
+setupPopupHandlers(addCreateCard, profileTitle, profileDescription);
 
 
 

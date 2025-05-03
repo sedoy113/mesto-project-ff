@@ -1,4 +1,4 @@
-import { profileTitle, profileDescription } from '../index.js';
+// import { profileTitle, profileDescription } from '../index.js';
 
 const popupElementList = document.querySelectorAll('.popup');
 const popupTypeEdit = document.querySelector('.popup_type_edit');
@@ -46,7 +46,7 @@ const openPopupFormeditInput = (title, description) => {
 	openPopup(popupTypeEdit)
 }
 
-const openPopupFormInnerText = (evt) => {
+const openPopupFormInnerText = (evt, profileTitle, profileDescription) => {
 	evt.preventDefault();
 	profileTitle.textContent = popupInputTypeName.value;
 	profileDescription.textContent = popupInputTypeDescription.value;
@@ -54,7 +54,7 @@ const openPopupFormInnerText = (evt) => {
 	closePopup(popupTypeEdit);
 }
 
-const setupPopupHandlers = (addCreateCard) => {
+const setupPopupHandlers = (addCreateCard, profileTitle, profileDescription) => {
 	const openPopupFormAddCard = (evt) => {
 		evt.preventDefault();
 		const addName = popupInputTypeCardName.value;
@@ -64,7 +64,7 @@ const setupPopupHandlers = (addCreateCard) => {
 		closePopup(popupTypeNewCard);
 	};
 
-	editProfile.addEventListener('submit', openPopupFormInnerText);
+	editProfile.addEventListener('submit', (evt) => openPopupFormInnerText(evt, profileTitle, profileDescription));
 	newPlace.addEventListener('submit', openPopupFormAddCard);
 };
 
