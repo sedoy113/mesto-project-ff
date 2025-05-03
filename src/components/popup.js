@@ -1,8 +1,5 @@
-// import { profileTitle, profileDescription } from '../index.js';
-
 const popupElementList = document.querySelectorAll('.popup');
 const popupTypeEdit = document.querySelector('.popup_type_edit');
-const popupTypeNewCard = document.querySelector('.popup_type_new-card');
 const popupInputTypeName = document.querySelector('.popup__input_type_name');
 const popupInputTypeDescription = document.querySelector('.popup__input_type_description');
 const popupInputTypeCardName = document.querySelector('.popup__input_type_card-name');
@@ -54,7 +51,7 @@ const openPopupFormInnerText = (evt, profileTitle, profileDescription) => {
 	closePopup(popupTypeEdit);
 }
 
-const setupPopupHandlers = (addCreateCard, profileTitle, profileDescription) => {
+const setupPopupHandlers = (addCreateCard, profileTitle, profileDescription, popupTypeNewCard) => {
 	const openPopupFormAddCard = (evt) => {
 		evt.preventDefault();
 		const addName = popupInputTypeCardName.value;
@@ -78,4 +75,4 @@ const closePopup = (popup) => {
 	document.removeEventListener('keydown', handleEscClose);
 };
 
-export { openPopup, openPopupFormeditInput, popupTypeNewCard, openPopupImage, setupPopupHandlers };
+export { openPopup, openPopupFormeditInput, openPopupImage, setupPopupHandlers };

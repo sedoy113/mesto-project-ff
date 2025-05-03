@@ -3,7 +3,7 @@ import './images/logo.svg';
 import './images/avatar.jpg';
 import { initialCards } from './components/cards.js';
 import { createCard, likeCard, deleteCard } from './components/card.js';
-import { openPopup, openPopupFormeditInput, popupTypeNewCard, openPopupImage, setupPopupHandlers } from './components/popup.js';
+import { openPopup, openPopupFormeditInput, openPopupImage, setupPopupHandlers } from './components/popup.js';
 
 
 const profileAddButton = document.querySelector('.profile__add-button');
@@ -11,6 +11,7 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 const placesList = document.querySelector('.places__list');
+const popupTypeNewCard = document.querySelector('.popup_type_new-card');
 
 profileEditButton.addEventListener('click', () => {
 	openPopupFormeditInput(profileTitle.textContent, profileDescription.textContent);
@@ -40,7 +41,7 @@ const addCreateCard = (text, url, openPopupImage) => {
 
 addCardsToList(initialCards, openPopupImage);
 
-setupPopupHandlers(addCreateCard, profileTitle, profileDescription);
+setupPopupHandlers(addCreateCard, profileTitle, profileDescription, popupTypeNewCard);
 
 
 
