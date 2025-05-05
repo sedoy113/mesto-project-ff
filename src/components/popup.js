@@ -18,8 +18,6 @@ const handleEscClose = (e) => {
 };
 
 const openPopupImage = (item, popupTypeImage, popupImage, popupCaption) => {
-	console.log(item);
-	console.log(popupTypeImage);
 	popupImage.src = item.link;
 	popupImage.alt = item.name;
 	popupCaption.textContent = item.name;
