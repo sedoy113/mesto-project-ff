@@ -17,18 +17,13 @@ const handleEscClose = (e) => {
 	}
 };
 
-
 const openPopupImage = (item, popupTypeImage, popupImage, popupCaption) => {
+	console.log(item);
+	console.log(popupTypeImage);
 	popupImage.src = item.link;
 	popupImage.alt = item.name;
 	popupCaption.textContent = item.name;
 	openPopup(popupTypeImage)
 }
 
-const openPopupFormeditInput = (popupTypeEdit, popupInputTypeName, popupInputTypeDescription, title, description) => {
-	popupInputTypeName.value = title;
-	popupInputTypeDescription.value = description;
-	openPopup(popupTypeEdit)
-}
-
-export { openPopup, closePopup, openPopupImage, openPopupFormeditInput };
+export { openPopup, closePopup, openPopupImage };
