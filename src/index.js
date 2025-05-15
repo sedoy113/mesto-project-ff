@@ -4,6 +4,7 @@ import './images/avatar.jpg';
 import { initialCards } from './components/cards.js';
 import { createCard, likeCard, deleteCard } from './components/card.js';
 import { openPopup, openPopupImage, closePopup } from './components/popup.js';
+import { enableValidation } from './components/validation.js';
 
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -24,6 +25,18 @@ const popupCaption = document.querySelector('.popup__caption');
 
 const editProfile = document.forms["edit-profile"];
 const newPlace = document.forms["new-place"];
+
+const validationObject = {
+	formSelector: '.popup__form',
+	inputSelector: '.popup__input',
+	submitButtonSelector: '.popup__button',
+	inactiveButtonClass: 'popup__button_disabled',
+	inputErrorClass: 'popup__input_type_error',
+	errorClass: 'popup__error_visible'
+};
+
+enableValidation(validationObject);
+
 
 profileEditButton.addEventListener('click', () => {
 	openPopupFormeditInput(popupTypeEdit, popupInputTypeName, popupInputTypeDescription, profileTitle.textContent, profileDescription.textContent);
@@ -89,10 +102,3 @@ const addCreateCard = (text, url, openPopupImage) => {
 }
 
 addCardsToList(initialCards, (item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption));
-
-
-
-
-
-
-
