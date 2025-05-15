@@ -4,7 +4,7 @@ import './images/avatar.jpg';
 import { initialCards } from './components/cards.js';
 import { createCard, likeCard, deleteCard } from './components/card.js';
 import { openPopup, openPopupImage, closePopup } from './components/popup.js';
-import { enableValidation } from './components/validation.js';
+import { enableValidation, clearValidation } from './components/validation.js';
 
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -40,10 +40,12 @@ enableValidation(validationObject);
 
 profileEditButton.addEventListener('click', () => {
 	openPopupFormeditInput(popupTypeEdit, popupInputTypeName, popupInputTypeDescription, profileTitle.textContent, profileDescription.textContent);
+	clearValidation(editProfile, validationObject);
 });
 
 profileAddButton.addEventListener('click', () => {
 	openPopup(popupTypeNewCard);
+	clearValidation(newPlace, validationObject);
 });
 
 
