@@ -1,10 +1,11 @@
 import './pages/index.css';
 import './images/logo.svg';
 import './images/avatar.jpg';
-import { initialCards } from './components/cards.js';
 import { createCard, likeCard, deleteCard } from './components/card.js';
 import { openPopup, openPopupImage, closePopup } from './components/popup.js';
 import { enableValidation, clearValidation } from './components/validation.js';
+import { getApicards } from './components/api.js';
+
 
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -103,4 +104,10 @@ const addCreateCard = (text, url, openPopupImage) => {
 	placesList.prepend(cardElement);
 }
 
-addCardsToList(initialCards, (item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption));
+getApicards()
+	.then((initialCards) => {
+		addCardsToList(initialCards, (item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption));
+	})
+	.catch((err) => {
+		console.log(`Ошибка: ${err}`);
+	});
