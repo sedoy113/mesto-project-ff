@@ -4,9 +4,9 @@ import './images/avatar.jpg';
 import { createCard, likeCard, deleteCard } from './components/card.js';
 import { openPopup, openPopupImage, closePopup } from './components/popup.js';
 import { enableValidation, clearValidation } from './components/validation.js';
-import { getApiCards } from './components/api.js';
+import { getApiCards, getApiUserInfo } from './components/api.js';
 
-
+getApiUserInfo();
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileTitle = document.querySelector('.profile__title');
