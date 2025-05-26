@@ -4,7 +4,7 @@ import './images/avatar.jpg';
 import { createCard, likeCard, deleteCard } from './components/card.js';
 import { openPopup, openPopupImage, closePopup } from './components/popup.js';
 import { enableValidation, clearValidation } from './components/validation.js';
-import { getApicards } from './components/api.js';
+import { getApiCards } from './components/api.js';
 
 
 const profileAddButton = document.querySelector('.profile__add-button');
@@ -104,7 +104,7 @@ const addCreateCard = (text, url, openPopupImage) => {
 	placesList.prepend(cardElement);
 }
 
-getApicards()
+getApiCards()
 	.then((initialCards) => {
 		addCardsToList(initialCards, (item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption));
 	})

@@ -6,7 +6,7 @@ const APICONFIG = {
 	},
 };
 
-export const getApicards = async () => {
+export const getApiCards = async () => {
 	const res = await fetch(`${APICONFIG.baseUrl}/cards`, {
 		headers: APICONFIG.headers,
 	});
