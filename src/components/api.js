@@ -7,9 +7,13 @@ const APICONFIG = {
 };
 
 export const getApiCards = async () => {
-	const res = await fetch(`${APICONFIG.baseUrl}/cards`, {
-		headers: APICONFIG.headers,
-	});
-	const result = await res.json();
-	return result;
+	try {
+		const res = await fetch(`${APICONFIG.baseUrl}/cards`, {
+			headers: APICONFIG.headers,
+		});
+		const result = await res.json();
+		return result;
+	} catch (error) {
+		throw error;
+	}
 };
