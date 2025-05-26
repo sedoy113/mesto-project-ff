@@ -4,13 +4,13 @@ import './images/avatar.jpg';
 import { createCard, likeCard, deleteCard } from './components/card.js';
 import { openPopup, openPopupImage, closePopup } from './components/popup.js';
 import { enableValidation, clearValidation } from './components/validation.js';
-import { getApiCards, getApiUserInfo } from './components/api.js';
+import { getApiCards, getApiUserInfo, updateApiUserInfo } from './components/api.js';
 
-getApiUserInfo();
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
+const profileImage = document.querySelector('.profile__image');
 const placesList = document.querySelector('.places__list');
 
 const popupTypeNewCard = document.querySelector('.popup_type_new-card');
@@ -37,8 +37,6 @@ const validationObject = {
 };
 
 enableValidation(validationObject);
-
-
 profileEditButton.addEventListener('click', () => {
 	openPopupFormeditInput(popupTypeEdit, popupInputTypeName, popupInputTypeDescription, profileTitle.textContent, profileDescription.textContent);
 	clearValidation(editProfile, validationObject);
@@ -63,9 +61,22 @@ popupElementList.forEach((popup) => {
 
 const openPopupFormInnerText = (evt) => {
 	evt.preventDefault();
-	profileTitle.textContent = popupInputTypeName.value;
-	profileDescription.textContent = popupInputTypeDescription.value;
-	closePopup(popupTypeEdit);
+	const name = popupInputTypeName.value;
+	const about = popupInputTypeDescription.value;
+	updateApiUserInfo(name, about)
+		.then((user) => {
+			updateProfilApi(user);
+			closePopup(popupTypeEdit);
+		})
+		.catch((err) => {
+			console.log(`Ошибка: ${err}`);
+		});
+}
+
+const updateProfilApi = (user) => {
+	profileTitle.textContent = user.name;
+	profileDescription.textContent = user.about;
+	profileImage.style.backgroundImage = `url(${user.avatar})`;
 };
 
 const openPopupFormAddCard = (evt) => {
@@ -106,7 +117,16 @@ const addCreateCard = (text, url, openPopupImage) => {
 
 getApiCards()
 	.then((initialCards) => {
+		console.log();
 		addCardsToList(initialCards, (item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption));
+	})
+	.catch((err) => {
+		console.log(`Ошибка: ${err}`);
+	});
+
+getApiUserInfo()
+	.then((user) => {
+		updateProfilApi(user);
 	})
 	.catch((err) => {
 		console.log(`Ошибка: ${err}`);

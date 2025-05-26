@@ -24,7 +24,20 @@ export const getApiUserInfo = async () => {
 			headers: APICONFIG.headers,
 		});
 		const result = await res.json();
-		console.log(result);
+		return result;
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const updateApiUserInfo = async (nameUser, description) => {
+	try {
+		const res = await fetch(`${APICONFIG.baseUrl}/users/me`, {
+			method: "PATCH",
+			headers: APICONFIG.headers,
+			body: JSON.stringify({ name: nameUser, about: description }),
+		});
+		const result = await res.json();
 		return result;
 	} catch (error) {
 		throw error;
