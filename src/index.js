@@ -26,6 +26,7 @@ const popupCaption = document.querySelector('.popup__caption');
 
 const editProfile = document.forms["edit-profile"];
 const newPlace = document.forms["new-place"];
+const newAvatar = document.forms["new-avatar"];
 
 const validationObject = {
 	formSelector: '.popup__form',
@@ -77,6 +78,7 @@ const updateProfilApi = (user) => {
 	profileTitle.textContent = user.name;
 	profileDescription.textContent = user.about;
 	profileImage.style.backgroundImage = `url(${user.avatar})`;
+	profilId = user._id;
 };
 
 const openPopupFormAddCard = (evt) => {
