@@ -129,14 +129,14 @@ const addCardsToList = (initialCards, openPopupImage) => {
 		return;
 	}
 	initialCards.forEach(item => {
-		const card = createCard(item, likeCard, openPopupImage, deleteCard);
+		const card = createCard(item, likeCard, openPopupImage, deleteCard, updateApiLike);
 		placesList.append(card);
 	});
 }
 
 const addCreateCard = (text, url, openPopupImage) => {
 	const newImage = { name: text, link: url };
-	const cardElement = createCard(newImage, likeCard, openPopupImage, deleteCard);
+	const cardElement = createCard(newImage, likeCard, openPopupImage, deleteCard, updateApiLike);
 	placesList.prepend(cardElement);
 }
 

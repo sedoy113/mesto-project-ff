@@ -60,7 +60,7 @@ export const updateApiAvatar = async (avatarUrl) => {
 
 export const updateApiLike = async (cardId) => {
 	try {
-		const res = await fetch(`${APICONFIG.baseUrl}/users/likes/${cardId}`, {
+		const res = await fetch(`${APICONFIG.baseUrl}/cards/likes/${cardId}`, {
 			method: "PUT",
 			headers: APICONFIG.headers,
 		});
