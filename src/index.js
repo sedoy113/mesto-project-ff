@@ -5,7 +5,7 @@ import './images/edit-avatar-icon.svg';
 import { createCard, likeCard, deleteCard } from './components/card.js';
 import { openPopup, openPopupImage, closePopup } from './components/popup.js';
 import { enableValidation, clearValidation } from './components/validation.js';
-import { getApiCards, getApiUserInfo, updateApiUserInfo, updateApiAvatar } from './components/api.js';
+import { getApiCards, getApiUserInfo, updateApiUserInfo, updateApiAvatar, updateApiLike } from './components/api.js';
 
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -144,7 +144,6 @@ const addCreateCard = (text, url, openPopupImage) => {
 
 getApiCards()
 	.then((initialCards) => {
-		console.log();
 		addCardsToList(initialCards, (item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption));
 	})
 	.catch((err) => {

@@ -5,9 +5,11 @@ const createCard = (item, likeCard, openPopupImage, deleteCard) => {
 	const cardImage = cardElement.querySelector('.card__image');
 	const cardTitle = cardElement.querySelector('.card__title');
 	const deleteButton = cardElement.querySelector('.card__delete-button');
+	const cardLikeNumber = cardElement.querySelector('.card__like-number');
 	cardImage.src = item.link;
 	cardImage.alt = item.name;
 	cardTitle.textContent = item.name;
+	cardLikeNumber.textContent = item.likes.length;
 
 	cardImage.addEventListener('click', () => openPopupImage(item));
 

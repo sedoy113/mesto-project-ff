@@ -57,3 +57,16 @@ export const updateApiAvatar = async (avatarUrl) => {
 		throw error;
 	}
 };
+
+export const updateApiLike = async (cardId) => {
+	try {
+		const res = await fetch(`${APICONFIG.baseUrl}/users/likes/${cardId}`, {
+			method: "PUT",
+			headers: APICONFIG.headers,
+		});
+		const result = await res.json();
+		return result;
+	} catch (error) {
+		throw error;
+	}
+};
