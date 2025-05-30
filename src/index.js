@@ -1,6 +1,7 @@
 import './pages/index.css';
 import './images/logo.svg';
 import './images/avatar.jpg';
+import './images/edit-avatar-icon.svg';
 import { createCard, likeCard, deleteCard } from './components/card.js';
 import { openPopup, openPopupImage, closePopup } from './components/popup.js';
 import { enableValidation, clearValidation } from './components/validation.js';
