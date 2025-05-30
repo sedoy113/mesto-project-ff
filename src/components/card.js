@@ -9,7 +9,7 @@ const createCard = (item, likeCard, openPopupImage, deleteCard) => {
 	cardImage.src = item.link;
 	cardImage.alt = item.name;
 	cardTitle.textContent = item.name;
-	cardLikeNumber.textContent = item.likes.length;
+	// cardLikeNumber.textContent = item.likes.length;
 
 	cardImage.addEventListener('click', () => openPopupImage(item));
 
