@@ -89,6 +89,7 @@ const openPopupFormInnerAvatar = (evt) => {
 		.then((user) => {
 			updateProfilApi(user);
 			closePopup(popupTypeNewAvatar);
+			newAvatar.reset();
 		})
 		.catch((err) => {
 			console.log(`Ошибка: ${err}`);
