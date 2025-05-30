@@ -43,3 +43,17 @@ export const updateApiUserInfo = async (nameUser, description) => {
 		throw error;
 	}
 };
+
+export const updateApiAvatar = async (avatarUrl) => {
+	try {
+		const res = await fetch(`${APICONFIG.baseUrl}/users/me/avatar`, {
+			method: "PATCH",
+			headers: APICONFIG.headers,
+			body: JSON.stringify({ avatar: avatarUrl }),
+		});
+		const result = await res.json();
+		return result;
+	} catch (error) {
+		throw error;
+	}
+};
