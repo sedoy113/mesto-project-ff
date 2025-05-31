@@ -70,3 +70,50 @@ export const updateApiLike = async (cardId) => {
 		throw error;
 	}
 };
+
+export const delApiLike = async (cardId) => {
+	try {
+		const res = await fetch(`${APICONFIG.baseUrl}/cards/likes/${cardId}`, {
+			method: "DELETE",
+			headers: APICONFIG.headers,
+		});
+		const result = await res.json();
+		return result;
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const addApiCard = async ({ name, link }) => {
+	try {
+		const res = await fetch(`${APICONFIG.baseUrl}/cards`, {
+			method: "POST",
+			headers: APICONFIG.headers,
+			body: JSON.stringify({ name, link }),
+		});
+		if (!res.ok) {
+			throw new Error(`Ошибка: ${res.status}`);
+		}
+		const result = await res.json();
+		if (!result.likes) {
+			result.likes = [];
+		}
+		return result;
+	} catch (error) {
+		console.error('Ошибка при добавлении карточки:', error);
+		throw error;
+	}
+};
+
+export const delApiCard = async (cardId) => {
+	try {
+		const res = await fetch(`${APICONFIG.baseUrl}/cards/${cardId}`, {
+			method: "DELETE",
+			headers: APICONFIG.headers,
+		});
+		const result = await res.json();
+		return result;
+	} catch (error) {
+		throw error;
+	}
+};

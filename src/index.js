@@ -5,7 +5,7 @@ import './images/edit-avatar-icon.svg';
 import { createCard, likeCard, deleteCard } from './components/card.js';
 import { openPopup, openPopupImage, closePopup } from './components/popup.js';
 import { enableValidation, clearValidation } from './components/validation.js';
-import { getApiCards, getApiUserInfo, updateApiUserInfo, updateApiAvatar, updateApiLike } from './components/api.js';
+import { getApiCards, getApiUserInfo, updateApiUserInfo, updateApiAvatar, updateApiLike, delApiLike, addApiCard, delApiCard } from './components/api.js';
 
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -41,12 +41,26 @@ const validationObject = {
 	errorClass: 'popup__error_visible'
 };
 
+let currentUserId = null;
+
 enableValidation(validationObject);
+
+// Получаем данные пользователя и карточки
+Promise.all([getApiUserInfo(), getApiCards()])
+	.then(([userData, cardsData]) => {
+		currentUserId = userData._id;
+		updateProfilApi(userData);
+		addCardsToList(cardsData, (item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption));
+	})
+	.catch((err) => {
+		console.log(`Ошибка: ${err}`);
+	});
 
 profilButtonAvatar.addEventListener('click', () => {
 	openPopup(popupTypeNewAvatar);
 	clearValidation(newAvatar, validationObject);
 });
+
 profileEditButton.addEventListener('click', () => {
 	openPopupFormeditInput(popupTypeEdit, popupInputTypeName, popupInputTypeDescription, profileTitle.textContent, profileDescription.textContent);
 	clearValidation(editProfile, validationObject);
@@ -100,60 +114,58 @@ const updateProfilApi = (user) => {
 	profileTitle.textContent = user.name;
 	profileDescription.textContent = user.about;
 	profileImage.style.backgroundImage = `url(${user.avatar})`;
-	// profilId = user._id;
 };
 
 const openPopupFormAddCard = (evt) => {
 	evt.preventDefault();
 	const addName = popupInputTypeCardName.value;
 	const addImage = popupInputTypeUrl.value;
-	addCreateCard(addName, addImage, (item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption));
-	newPlace.reset();
-	closePopup(popupTypeNewCard);
+
+	addApiCard({ name: addName, link: addImage })
+		.then((newCardFromServer) => {
+			const cardElement = createCard(
+				newCardFromServer,
+				currentUserId,
+				likeCard,
+				(item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption),
+				(cardElement, cardId) => deleteCard(cardElement, cardId, delApiCard),
+				updateApiLike,
+				delApiLike
+			);
+			placesList.prepend(cardElement);
+			newPlace.reset();
+			closePopup(popupTypeNewCard);
+		})
+		.catch((err) => {
+			console.error('Ошибка при добавлении карточки:', err);
+		});
 };
 
 const openPopupFormeditInput = (popupTypeEdit, popupInputTypeName, popupInputTypeDescription, title, description) => {
 	popupInputTypeName.value = title;
 	popupInputTypeDescription.value = description;
-	openPopup(popupTypeEdit)
+	openPopup(popupTypeEdit);
 }
-
 
 editProfile.addEventListener('submit', openPopupFormInnerText);
 newPlace.addEventListener('submit', openPopupFormAddCard);
 newAvatar.addEventListener('submit', openPopupFormInnerAvatar);
-// добавить карточку в список из массива данных
+
 const addCardsToList = (initialCards, openPopupImage) => {
 	if (!initialCards.length) {
 		console.warn('Нет данных в массиве');
 		return;
 	}
 	initialCards.forEach(item => {
-		const card = createCard(item, likeCard, openPopupImage, deleteCard, updateApiLike);
+		const card = createCard(
+			item,
+			currentUserId,
+			likeCard,
+			(item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption),
+			(cardElement, cardId) => deleteCard(cardElement, cardId, delApiCard),
+			updateApiLike,
+			delApiLike
+		);
 		placesList.append(card);
 	});
 }
-
-const addCreateCard = (text, url, openPopupImage) => {
-	const newImage = { name: text, link: url };
-	const cardElement = createCard(newImage, likeCard, openPopupImage, deleteCard, updateApiLike);
-	placesList.prepend(cardElement);
-}
-
-
-
-getApiCards()
-	.then((initialCards) => {
-		addCardsToList(initialCards, (item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption));
-	})
-	.catch((err) => {
-		console.log(`Ошибка: ${err}`);
-	});
-
-getApiUserInfo()
-	.then((user) => {
-		updateProfilApi(user);
-	})
-	.catch((err) => {
-		console.log(`Ошибка: ${err}`);
-	});
