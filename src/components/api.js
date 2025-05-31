@@ -5,115 +5,73 @@ const APICONFIG = {
 		'Content-Type': 'application/json'
 	},
 };
-
-export const getApiCards = async () => {
+const fetchData = async (url, options = {}) => {
 	try {
-		const res = await fetch(`${APICONFIG.baseUrl}/cards`, {
-			headers: APICONFIG.headers,
-		});
-		const result = await res.json();
-		return result;
-	} catch (error) {
-		throw error;
-	}
-};
-
-export const getApiUserInfo = async () => {
-	try {
-		const res = await fetch(`${APICONFIG.baseUrl}/users/me`, {
-			headers: APICONFIG.headers,
-		});
-		const result = await res.json();
-		return result;
-	} catch (error) {
-		throw error;
-	}
-};
-
-export const updateApiUserInfo = async (nameUser, description) => {
-	try {
-		const res = await fetch(`${APICONFIG.baseUrl}/users/me`, {
-			method: "PATCH",
-			headers: APICONFIG.headers,
-			body: JSON.stringify({ name: nameUser, about: description }),
-		});
-		const result = await res.json();
-		return result;
-	} catch (error) {
-		throw error;
-	}
-};
-
-export const updateApiAvatar = async (avatarUrl) => {
-	try {
-		const res = await fetch(`${APICONFIG.baseUrl}/users/me/avatar`, {
-			method: "PATCH",
-			headers: APICONFIG.headers,
-			body: JSON.stringify({ avatar: avatarUrl }),
-		});
-		const result = await res.json();
-		return result;
-	} catch (error) {
-		throw error;
-	}
-};
-
-export const updateApiLike = async (cardId) => {
-	try {
-		const res = await fetch(`${APICONFIG.baseUrl}/cards/likes/${cardId}`, {
-			method: "PUT",
-			headers: APICONFIG.headers,
-		});
-		const result = await res.json();
-		return result;
-	} catch (error) {
-		throw error;
-	}
-};
-
-export const delApiLike = async (cardId) => {
-	try {
-		const res = await fetch(`${APICONFIG.baseUrl}/cards/likes/${cardId}`, {
-			method: "DELETE",
-			headers: APICONFIG.headers,
-		});
-		const result = await res.json();
-		return result;
-	} catch (error) {
-		throw error;
-	}
-};
-
-export const addApiCard = async ({ name, link }) => {
-	try {
-		const res = await fetch(`${APICONFIG.baseUrl}/cards`, {
-			method: "POST",
-			headers: APICONFIG.headers,
-			body: JSON.stringify({ name, link }),
-		});
+		const res = await fetch(url, options);
 		if (!res.ok) {
 			throw new Error(`Ошибка: ${res.status}`);
 		}
 		const result = await res.json();
-		if (!result.likes) {
-			result.likes = [];
-		}
 		return result;
 	} catch (error) {
-		console.error('Ошибка при добавлении карточки:', error);
+		console.error('Ошибка:', error);
 		throw error;
 	}
 };
 
-export const delApiCard = async (cardId) => {
-	try {
-		const res = await fetch(`${APICONFIG.baseUrl}/cards/${cardId}`, {
-			method: "DELETE",
-			headers: APICONFIG.headers,
-		});
-		const result = await res.json();
-		return result;
-	} catch (error) {
-		throw error;
+export const getApiCards = async () => {
+	return fetchData(`${APICONFIG.baseUrl}/cards`, { headers: APICONFIG.headers });
+};
+
+export const getApiUserInfo = async () => {
+	return fetchData(`${APICONFIG.baseUrl}/users/me`, { headers: APICONFIG.headers });
+};
+
+export const updateApiUserInfo = async (nameUser, description) => {
+	return fetchData(`${APICONFIG.baseUrl}/users/me`, {
+		method: "PATCH",
+		headers: APICONFIG.headers,
+		body: JSON.stringify({ name: nameUser, about: description }),
+	});
+};
+
+export const updateApiAvatar = async (avatarUrl) => {
+	return fetchData(`${APICONFIG.baseUrl}/users/me/avatar`, {
+		method: "PATCH",
+		headers: APICONFIG.headers,
+		body: JSON.stringify({ avatar: avatarUrl }),
+	});
+};
+
+export const updateApiLike = async (cardId) => {
+	return fetchData(`${APICONFIG.baseUrl}/cards/likes/${cardId}`, {
+		method: "PUT",
+		headers: APICONFIG.headers,
+	});
+};
+
+export const delApiLike = async (cardId) => {
+	return fetchData(`${APICONFIG.baseUrl}/cards/likes/${cardId}`, {
+		method: "DELETE",
+		headers: APICONFIG.headers,
+	});
+};
+
+export const addApiCard = async ({ name, link }) => {
+	const result = await fetchData(`${APICONFIG.baseUrl}/cards`, {
+		method: "POST",
+		headers: APICONFIG.headers,
+		body: JSON.stringify({ name, link }),
+	});
+	if (!result.likes) {
+		result.likes = [];
 	}
+	return result;
+};
+
+export const delApiCard = async (cardId) => {
+	return fetchData(`${APICONFIG.baseUrl}/cards/${cardId}`, {
+		method: "DELETE",
+		headers: APICONFIG.headers,
+	});
 };
