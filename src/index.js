@@ -82,32 +82,53 @@ popupElementList.forEach((popup) => {
 	}
 });
 
-const openPopupFormInnerText = (evt) => {
+// const openPopupFormInnerText = (evt) => {
+// 	evt.preventDefault();
+// 	const name = popupInputTypeName.value;
+// 	const about = popupInputTypeDescription.value;
+// 	updateApiUserInfo(name, about)
+// 		.then((user) => {
+// 			updateProfilApi(user);
+// 			closePopup(popupTypeEdit);
+// 		})
+// 		.catch((err) => {
+// 			console.log(`Ошибка: ${err}`);
+// 		});
+// }
+
+const openPopupFormInnerText = async (evt) => {
 	evt.preventDefault();
 	const name = popupInputTypeName.value;
 	const about = popupInputTypeDescription.value;
-	updateApiUserInfo(name, about)
-		.then((user) => {
-			updateProfilApi(user);
-			closePopup(popupTypeEdit);
-		})
-		.catch((err) => {
-			console.log(`Ошибка: ${err}`);
-		});
+	const submitButton = editProfile.querySelector('.popup__button');
+	submitButton.textContent = 'Сохранение...';
+
+	try {
+		const user = await updateApiUserInfo(name, about);
+		updateProfilApi(user);
+		closePopup(popupTypeEdit);
+	} catch (err) {
+		console.log(`Ошибка: ${err}`);
+	} finally {
+		submitButton.textContent = 'Сохранить';
+	}
 }
 
-const openPopupFormInnerAvatar = (evt) => {
+const openPopupFormInnerAvatar = async (evt) => {
 	evt.preventDefault();
 	const link = popupInputTypeAvatar.value;
-	updateApiAvatar(link)
-		.then((user) => {
-			updateProfilApi(user);
-			closePopup(popupTypeNewAvatar);
-			newAvatar.reset();
-		})
-		.catch((err) => {
-			console.log(`Ошибка: ${err}`);
-		});
+	const submitButton = newAvatar.querySelector('.popup__button');
+	submitButton.textContent = 'Сохранение...';
+	try {
+		const user = await updateApiAvatar(link);
+		updateProfilApi(user);
+		closePopup(popupTypeNewAvatar);
+		newAvatar.reset();
+	} catch (err) {
+		console.log(`Ошибка: ${err}`);
+	} finally {
+		submitButton.textContent = 'Сохранить';
+	}
 }
 
 const updateProfilApi = (user) => {
@@ -116,29 +137,32 @@ const updateProfilApi = (user) => {
 	profileImage.style.backgroundImage = `url(${user.avatar})`;
 };
 
-const openPopupFormAddCard = (evt) => {
+const openPopupFormAddCard = async (evt) => {
 	evt.preventDefault();
 	const addName = popupInputTypeCardName.value;
 	const addImage = popupInputTypeUrl.value;
+	const submitButton = newPlace.querySelector('.popup__button');
+	submitButton.textContent = 'Сохранение...';
 
-	addApiCard({ name: addName, link: addImage })
-		.then((newCardFromServer) => {
-			const cardElement = createCard(
-				newCardFromServer,
-				currentUserId,
-				likeCard,
-				(item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption),
-				(cardElement, cardId) => deleteCard(cardElement, cardId, delApiCard),
-				updateApiLike,
-				delApiLike
-			);
-			placesList.prepend(cardElement);
-			newPlace.reset();
-			closePopup(popupTypeNewCard);
-		})
-		.catch((err) => {
-			console.error('Ошибка при добавлении карточки:', err);
-		});
+	try {
+		const newCardFromServer = await addApiCard({ name: addName, link: addImage });
+		const cardElement = createCard(
+			newCardFromServer,
+			currentUserId,
+			likeCard,
+			(item) => openPopupImage(item, popupTypeImage, popupImage, popupCaption),
+			(cardElement, cardId) => deleteCard(cardElement, cardId, delApiCard),
+			updateApiLike,
+			delApiLike
+		);
+		placesList.prepend(cardElement);
+		newPlace.reset();
+		closePopup(popupTypeNewCard);
+	} catch (err) {
+		console.error('Ошибка при добавлении карточки:', err);
+	} finally {
+		submitButton.textContent = 'Создать';
+	}
 };
 
 const openPopupFormeditInput = (popupTypeEdit, popupInputTypeName, popupInputTypeDescription, title, description) => {
