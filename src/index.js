@@ -82,20 +82,6 @@ popupElementList.forEach((popup) => {
 	}
 });
 
-// const openPopupFormInnerText = (evt) => {
-// 	evt.preventDefault();
-// 	const name = popupInputTypeName.value;
-// 	const about = popupInputTypeDescription.value;
-// 	updateApiUserInfo(name, about)
-// 		.then((user) => {
-// 			updateProfilApi(user);
-// 			closePopup(popupTypeEdit);
-// 		})
-// 		.catch((err) => {
-// 			console.log(`Ошибка: ${err}`);
-// 		});
-// }
-
 const openPopupFormInnerText = async (evt) => {
 	evt.preventDefault();
 	const name = popupInputTypeName.value;
