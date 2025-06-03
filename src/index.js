@@ -68,7 +68,6 @@ profileEditButton.addEventListener('click', () => {
 
 profileAddButton.addEventListener('click', () => {
 	openPopup(popupTypeNewCard);
-	clearValidation(newPlace, validationObject);
 });
 
 popupElementList.forEach((popup) => {
@@ -148,6 +147,7 @@ const openPopupFormAddCard = async (evt) => {
 		console.error('Ошибка при добавлении карточки:', err);
 	} finally {
 		submitButton.textContent = 'Создать';
+		clearValidation(newPlace, validationObject);
 	}
 };
 
